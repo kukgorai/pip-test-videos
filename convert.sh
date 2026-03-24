@@ -126,9 +126,69 @@ esac
 echo ""
 echo "Output: $OUT_DIR/$OUT_FILE"
 
+# --- Regenerate README.md ---
+generate_readme() {
+  local readme="$REPO_DIR/README.md"
+
+  echo "# PIP Test Media URLs" > "$readme"
+  echo "" >> "$readme"
+
+  # Video section
+  local video_files
+  video_files=$(find "$REPO_DIR/video" -name "stream.m3u8" 2>/dev/null | sort)
+  if [[ -n "$video_files" ]]; then
+    echo "## Video (HLS)" >> "$readme"
+    echo "" >> "$readme"
+    echo "| Resolution | URL |" >> "$readme"
+    echo "|------------|-----|" >> "$readme"
+    while IFS= read -r f; do
+      local res
+      res=$(echo "$f" | sed "s|$REPO_DIR/video/||" | sed 's|/stream.m3u8||')
+      echo "| ${res} | ${PAGES_BASE}/video/${res}/stream.m3u8 |" >> "$readme"
+    done <<< "$video_files"
+    echo "" >> "$readme"
+  fi
+
+  # Image section
+  local image_files
+  image_files=$(find "$REPO_DIR/image" -type f \( -name "image.jpg" -o -name "image.png" \) 2>/dev/null | sort)
+  if [[ -n "$image_files" ]]; then
+    echo "## Image" >> "$readme"
+    echo "" >> "$readme"
+    echo "| Resolution | URL |" >> "$readme"
+    echo "|------------|-----|" >> "$readme"
+    while IFS= read -r f; do
+      local res filename
+      filename=$(basename "$f")
+      res=$(echo "$f" | sed "s|$REPO_DIR/image/||" | sed "s|/${filename}||")
+      echo "| ${res} | ${PAGES_BASE}/image/${res}/${filename} |" >> "$readme"
+    done <<< "$image_files"
+    echo "" >> "$readme"
+  fi
+
+  # GIF section
+  local gif_files
+  gif_files=$(find "$REPO_DIR/gif" -name "image.gif" 2>/dev/null | sort)
+  if [[ -n "$gif_files" ]]; then
+    echo "## GIF" >> "$readme"
+    echo "" >> "$readme"
+    echo "| Resolution | URL |" >> "$readme"
+    echo "|------------|-----|" >> "$readme"
+    while IFS= read -r f; do
+      local res
+      res=$(echo "$f" | sed "s|$REPO_DIR/gif/||" | sed 's|/image.gif||')
+      echo "| ${res} | ${PAGES_BASE}/gif/${res}/image.gif |" >> "$readme"
+    done <<< "$gif_files"
+    echo "" >> "$readme"
+  fi
+}
+
+echo "Updating README.md..."
+generate_readme
+
 # --- Git commit + push ---
 cd "$REPO_DIR"
-git add "${MEDIA_TYPE}/${RESOLUTION}/"
+git add "${MEDIA_TYPE}/${RESOLUTION}/" README.md
 git commit -m "Add ${MEDIA_TYPE} ${RESOLUTION}" 2>&1 | tail -2
 echo "Pushing to GitHub..."
 git push 2>&1 | tail -2
