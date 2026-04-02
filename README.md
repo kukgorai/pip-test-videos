@@ -8,6 +8,12 @@
 | 200x300 | https://kukgorai.github.io/pip-test-videos/video/200x300/stream.m3u8 |
 | 854x480 | https://kukgorai.github.io/pip-test-videos/video/854x480/stream.m3u8 |
 
+## Video (MP4)
+
+| Resolution | URL |
+|------------|-----|
+| 854x480 | https://kukgorai.github.io/pip-test-videos/mp4/854x480/video.mp4 |
+
 ## Image
 
 | Resolution | URL |
