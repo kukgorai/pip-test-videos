@@ -149,6 +149,22 @@ generate_readme() {
     echo "" >> "$readme"
   fi
 
+  # MP4 section
+  local mp4_files
+  mp4_files=$(find "$REPO_DIR/mp4" -name "video.mp4" 2>/dev/null | sort)
+  if [[ -n "$mp4_files" ]]; then
+    echo "## Video (MP4)" >> "$readme"
+    echo "" >> "$readme"
+    echo "| Resolution | URL |" >> "$readme"
+    echo "|------------|-----|" >> "$readme"
+    while IFS= read -r f; do
+      local res
+      res=$(echo "$f" | sed "s|$REPO_DIR/mp4/||" | sed 's|/video.mp4||')
+      echo "| ${res} | ${PAGES_BASE}/mp4/${res}/video.mp4 |" >> "$readme"
+    done <<< "$mp4_files"
+    echo "" >> "$readme"
+  fi
+
   # Image section
   local image_files
   image_files=$(find "$REPO_DIR/image" -type f \( -name "image.jpg" -o -name "image.png" \) 2>/dev/null | sort)
