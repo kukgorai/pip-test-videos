@@ -18,6 +18,7 @@
 
 | Resolution | URL |
 |------------|-----|
+| 1024x1536 | https://kukgorai.github.io/pip-test-videos/image/1024x1536/image.png |
 | 1080x2400 | https://kukgorai.github.io/pip-test-videos/image/1080x2400/image.jpg |
 | 1800x2400 | https://kukgorai.github.io/pip-test-videos/image/1800x2400/image.jpg |
 | 800x450 | https://kukgorai.github.io/pip-test-videos/image/800x450/image.jpg |
