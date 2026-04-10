@@ -6,6 +6,7 @@
 |------------|-----|
 | 1080x1920 | https://kukgorai.github.io/pip-test-videos/video/1080x1920/stream.m3u8 |
 | 1080x2400 | https://kukgorai.github.io/pip-test-videos/video/1080x2400/stream.m3u8 |
+| 1920x1080 | https://kukgorai.github.io/pip-test-videos/video/1920x1080/stream.m3u8 |
 | 200x300 | https://kukgorai.github.io/pip-test-videos/video/200x300/stream.m3u8 |
 | 854x480 | https://kukgorai.github.io/pip-test-videos/video/854x480/stream.m3u8 |
 
